@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-import stroe from './stroe'
+import store from './store'
 
 Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  stroe
+  store
 }).$mount('#app')
 
 // 若是没有开启Devtools工具，在开发环境中开启，在生产环境中关闭

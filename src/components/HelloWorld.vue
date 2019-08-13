@@ -1,33 +1,16 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li v-for="item in arr" :key="item"><a href="https://router.vuejs.org" target="_blank" rel="noopener">{{item}}</a></li>
-      
-    </ul>
+    <h1>{{ changeNum }}</h1>
+    <h1>{{ getChangeNum }}</h1>
+    <button @click="add">+</button>
+    <button @click="subtract">-</button>
   </div>
 </template>
 
 <script>
+import {mapState, Store} from 'vuex'
+import {constants} from 'crypto';
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -35,12 +18,34 @@ export default {
   },
   data() {
     return {
-      arr: [1,2,3,4,5,6,7,8,9]
+      arr: [1,2,3,4,5,6,7,8,9],
+      getChangeNum: '1'
     }
   },
   mounted(){
-    this.$stroe.dispatch('hideFoot')
+    this.$store.dispatch('hideFoot')
+    //console.log(this.showState)
+    //console.log(this.changeNum)
+    
+  },
+  methods: {
+    add(){
+      //console.log('加')
+      this.$store.dispatch('getNewNum', 10)
+      //this.getChangeNum = this.$store.getters.getChangeNum   //使用getter获取状态值
+    },
+    subtract(){
+      //console.log('减')
+      this.$store.dispatch('jian', 10)
+    }
+  },
+  computed: {
+      ...mapState({
+          showState: state => state.showFoot,
+          changeNum: state => state.changeNum
+      })
   }
+ 
 }
 </script>
 
